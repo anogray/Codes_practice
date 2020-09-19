@@ -1,0 +1,34 @@
+//https://www.geeksforgeeks.org/find-position-of-the-only-set-bit/
+class Solution {
+    static int findPosition(int N) {
+        
+        int count=0,n=0;
+        n=N;
+        boolean flag =false,err=false;
+        if(n==0)
+        return -1;
+        while(n>0)
+        { 
+            int val = n & 1;
+
+            if(val ==1 && flag==true)
+            {   err = true;
+                break;
+            }
+            
+            if(val==1)
+            {
+             flag = true;
+            }          
+            count++;
+            n = n>>1;
+        }
+        //if(count)
+        if(err)
+        return -1;
+         //System.out.println("Invalid number");
+        else
+        return count;
+        //System.out.println("Position "+count);
+    }
+};

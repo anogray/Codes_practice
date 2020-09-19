@@ -1,0 +1,35 @@
+//https://leetcode.com/problems/sequential-digits/
+class Solution {
+    public List<Integer> sequentialDigits(int low, int high) {
+       String baseval = "123456789";
+        int start =0,end=0;
+        
+        String from = String.valueOf(low);
+        String to = String.valueOf(high);
+          
+        start=from.length();
+          end=to.length();
+        System.out.println(baseval.length());
+        List<Integer> ans = new ArrayList<>();
+        int lo=0;
+        
+        for(int k=start;k<=end;k++)
+        {   
+            lo = k;
+            for(int i=0;i<baseval.length() && lo<=baseval.length();i++)
+            {
+            String str = baseval.substring(i,lo);
+            int val = Integer.valueOf(str);
+                lo++;
+                        
+            if(val<=high && val>=low)
+                ans.add(val);
+             else if(val>high)
+               return ans;
+            }
+         
+        }
+        
+        return ans;
+    }
+}
