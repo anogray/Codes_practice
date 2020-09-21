@@ -1,0 +1,28 @@
+/https://practice.geeksforgeeks.org/problems/binary-representation/0
+class Solution{
+
+    //recursively 
+    // void helper(int N)
+    // {
+    //  if(N>1)
+    //  helper(N/2);
+     
+    //  str.append(N%2);
+    // }
+    
+    String getBinaryRep(int N){
+    //helper(N);
+    //String st = str.toString();
+    StringBuilder str = new StringBuilder("");
+    for(int i = 1<<29; i>0 ; i=i/2)
+    {
+        if((N & i)!=0)
+        str.append("1");
+        else
+        str.append("0");
+    }
+        String st = str.toString();
+
+    return st;
+    }
+}

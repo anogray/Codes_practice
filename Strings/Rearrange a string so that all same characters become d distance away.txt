@@ -1,0 +1,99 @@
+//https://www.geeksforgeeks.org/rearrange-a-string-so-that-all-same-characters-become-at-least-d-distance-away/
+// "static void main" must be defined in a public class.
+public class Main {
+   
+     static class  pair implements Comparable<pair>{
+        char ch;
+        int freq;
+          pair(char ch, int freq)
+        {
+            this.ch=ch;
+            this.freq=freq;
+        }
+        public int compareTo(pair p)
+        {
+            return p.freq-this.freq;
+        }
+    }
+    public static void main(String[] args) {
+        //ans string is empty if not possible else ans string can be printed/returned etc.
+        PriorityQueue<pair> qu = new PriorityQueue<>();
+        String str = "geeksforgeeks";
+        char[] cstr = str.toCharArray();
+        char[] anstr = new char[cstr.length];
+        
+        HashMap<Character,Integer> hm = new HashMap<>();
+        for(char ch : cstr)
+        {
+            if(!hm.containsKey(ch))
+                hm.put(ch,1);
+            else
+            {
+                hm.put(ch,hm.get(ch)+1);
+            }
+        }
+       
+       for(char key : hm.keySet())
+        {
+            qu.add(new pair(key,hm.get(key)));
+        }
+
+
+        int i=0;
+        int k  = -1;
+        boolean flag = false;
+        boolean notposs = false;
+        if(k>=anstr.length)
+            flag=true;
+            
+        else{
+            while(qu.size()>0 && k>0)
+            {          //System.out.println("i index at: "+i);
+            if(i<anstr.length)
+            {
+            pair rem = qu.remove();
+            
+            char character = rem.ch;
+            int times = rem.freq;
+            int j = i;
+            while(times>0)
+            { 
+              if(j>=anstr.length)
+              {
+                  flag=true;
+                  break;
+              }
+            else if(j<anstr.length && anstr[j]==0)
+              { 
+             //System.out.println(character+" fill at next j: "+j);
+             anstr[j] = character;
+              j=j+k;
+              times--;
+                  
+              }
+              else if(anstr[j]!=0)
+              {
+                  j++;
+              }
+              else
+              {
+              flag = true;
+              break;    
+              }
+            }
+            i++;
+            }
+        }
+    }   
+        String ans = "";
+         if(flag==true || k<0)
+         {  // System.out.println("not possible");
+         }
+         else
+         { //System.out.println(Arrays.toString(anstr));
+          ans = new String(anstr);
+         }
+                  System.out.println(ans);
+
+    }
+}

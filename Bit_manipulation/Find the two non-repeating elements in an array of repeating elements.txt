@@ -1,0 +1,33 @@
+class Solution
+{
+    public int[] singleNumber(int[] nums)
+    {
+        int mask=0;
+        for(int i=0;i<nums.length;i++)
+        {
+        mask = mask ^ nums[i];
+        }
+        int rbs = mask & ~(mask-1);
+        int x=0,y=0;
+        
+        for(int i = 0 ; i<nums.length;i++)
+        {int chk = rbs & nums[i];
+        if(chk!=0)
+        x^=nums[i];
+        else
+        y^=nums[i];
+        }
+        int[] ans = new int[2];
+        if(x<y)
+        {ans[0]=x;
+        ans[1]=y;
+        }
+        else
+        {
+        ans[0]=y;
+        ans[1]=x;    
+        }
+        
+        return ans;
+    }
+}
