@@ -1,0 +1,49 @@
+//https://www.geeksforgeeks.org/check-if-two-given-strings-are-isomorphic-to-each-other/
+
+public class Main {
+    
+    private static boolean iso(String s1, String s2)
+	{
+	    if(s1.length()==0 && s2.length()==0)
+	    return false;
+	    if(s1.length()!=s2.length())
+	    return false;
+	    
+	    HashMap<Character,Character> hm = new HashMap<>();
+	    for(int i=0; i<s1.length();i++)
+	    {  
+	        char cs1 = s1.charAt(i);
+	        	    //System.out.println("cs1: "+cs1);
+
+	        if(!hm.containsKey(cs1))
+	        {
+	            hm.put(cs1,s2.charAt(i));
+	        }
+	        else
+	        {
+	            hm.put(cs1,s2.charAt(i));
+	        }
+	    }
+	   // System.out.println(hm);
+	    for(int i = 0; i<s1.length();i++)
+	    {
+	        char cs1 = s1.charAt(i);
+	        char cs2 = s2.charAt(i);
+	     if( hm.get(cs1)!=cs2)
+	     return false;
+	    }
+	    return true;
+	}
+    
+    public static void main(String[] args) {
+            String s1 = "aitg";
+		    String s2 = "dphc";
+		    
+		    boolean ans = iso(s1,s2);
+		    
+		    if(ans)
+		    System.out.println("1");
+		    else
+		    System.out.println("0");
+    }
+}

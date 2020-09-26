@@ -1,0 +1,57 @@
+//https://www.geeksforgeeks.org/delete-nodes-which-have-a-greater-value-on-right-side/
+class GfG
+{
+     Node reverse(Node head)
+    {
+      Node curr = head;
+      Node prev = null;
+      Node next;
+      
+      while(curr!=null)
+      {
+          next = curr.next;
+          curr.next = prev;
+          prev = curr;
+          curr = next;
+      }
+      head = prev;
+      
+      return head;
+    }
+    
+     Node operation(Node head)
+    {
+        Node curr = head;
+        Node maxNode = head;
+        Node temp;
+        
+        while(curr!=null && curr.next!=null)
+        {
+            temp = curr.next;
+            
+            if(maxNode.data > curr.next.data)
+            {
+                temp = curr.next;
+                curr.next = temp.next;
+                temp=null;
+            }
+            else
+            {   curr = curr.next;
+                maxNode = curr;
+            }
+        }
+        
+        return head;
+    }
+    
+    Node compute(Node head)
+    {
+     head = reverse(head);
+     head = operation(head);
+     head = reverse(head);
+     
+        return head;
+
+    }
+}
+  

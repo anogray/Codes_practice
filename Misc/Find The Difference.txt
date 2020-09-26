@@ -1,0 +1,35 @@
+//https://leetcode.com/problems/find-the-difference/
+class Solution {
+    public char findTheDifference(String s, String t) {
+        
+        HashMap<Character,Integer> hm = new HashMap<>();
+         for(char c : t.toCharArray())
+         {
+             if(!hm.containsKey(c))
+                 hm.put(c,1);
+             else
+                 hm.put(c, hm.get(c)+1);
+         }
+        
+        for(char c: s.toCharArray())
+        {
+            if(hm.containsKey(c));
+            {
+              int left = hm.get(c);
+                left=left-1;
+                
+                if(left<=0)
+                hm.remove(c);
+                else
+                hm.put(c,left);
+              
+            }
+        }
+        char ans='0';
+        if(hm.size()>0)
+            {
+            for(char c : hm.keySet())
+                ans=c;}
+        return ans;
+    }
+}
