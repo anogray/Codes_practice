@@ -1,0 +1,26 @@
+//https://www.geeksforgeeks.org/sort-a-stack-using-recursion/
+class GfG{
+	
+	void replaceStack(Stack<Integer> st, int temp){
+	
+	if(st.size()==0 || temp>st.peek()){
+	    st.push(temp);
+	    return;
+	}
+	 int stemp = st.pop();
+	 replaceStack(st,temp);
+	 st.push(stemp);
+	    
+	}
+	public Stack<Integer> sort(Stack<Integer> s)
+	{
+		//add code here.
+		if(s.size()<=0)
+		return s;
+		
+		int temp = s.pop();
+		sort(s);
+		replaceStack(s,temp);
+		return s;
+	}
+}

@@ -1,0 +1,69 @@
+// "static void main" must be defined in a public class.
+public class Main {
+    //MERGE SORT N*LOG(N) : Time, SPACE = 2*N i.e N (N = 2 arrays initialized and used)
+     private static void sortmerge(int[] arr, int l, int mid ,int r)
+     {
+         int one = mid-l + 1;
+         int two = r-mid;
+         
+         int[] oarr = new int[one];
+         int[] tarr = new int[two];
+         
+         for(int i =0; i<oarr.length;i++)
+             oarr[i] = arr[l+i];
+         
+         for(int j=0; j<tarr.length; j++)
+             tarr[j] = arr[mid+j+1];
+          
+        int i=0,j=0;
+        int k =l;
+        while(i<one && j<two)
+        {
+            if(oarr[i]<=tarr[j])
+            {
+                arr[k]=oarr[i];
+                i++;
+            }
+            else
+            {
+                arr[k] = tarr[j];
+                j++;
+            }
+            k++;
+        }
+        
+          while(i<one)
+         {
+             arr[k] = oarr[i];
+             i++;
+             k++;
+         }
+         while(j<two)
+         {
+             arr[k] = tarr[j];
+             j++;
+             k++;
+         }
+             
+     }
+    
+    private static void merge(int[] arr, int l, int r)
+    {
+        if(l<r){
+        int mid = (l+r)/2;
+        merge(arr,l,mid);
+        merge(arr,mid+1,r);
+
+        sortmerge(arr, l , mid, r);
+            
+        }
+    }
+    
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+        int[] arr = {1,30,6,3,11,99,9};
+        
+        merge(arr,0,arr.length-1);
+        System.out.println(Arrays.toString(arr));
+    }
+}
