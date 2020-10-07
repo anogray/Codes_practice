@@ -1,0 +1,83 @@
+class Solution {
+    
+    public void solveSudoku(char[][] board){
+        
+       boolean issolvable = solver(board);
+        return;
+        
+    }
+    
+    public boolean isSafe(char[][] board, int row, int col, char num)
+    {
+         
+        for(int c = 0 ; c<board.length; c++){
+            if(board[row][c] == num ){
+                return false;
+            }
+        }
+        
+        for(int r = 0 ; r<board.length; r++){
+            if(board[r][col] == num ){
+                return false;
+            }
+        }
+        
+        int sqrt  = (int)Math.sqrt(board.length);
+        int rbox = row - row%sqrt;
+        int cbox = col - col%sqrt;
+        
+        for(int r = rbox; r<rbox+sqrt; r++){
+            for( int c=cbox; c<cbox+sqrt; c++){
+                if(board[r][c]==num)
+                    return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    public boolean solver(char[][] board) {
+        
+      int N = board.length;
+       // System.out.println(N);
+      int row = -1, col =-1;
+      boolean isempty = true;  
+      for(int i = 0; i< N; i++)
+      {
+          for(int j=0; j<N; j++){
+            
+              if(board[i][j] == '.'){
+                  
+                  row = i;
+                  col = j;
+                  isempty = false;
+                  break;
+              }
+              
+          }
+          
+          if(isempty==false)
+              break;
+      }
+        if(isempty==true)
+            return true;
+        
+        for(int num =1; num<=N; num++){
+            char ch = (char)(num +'0');
+            if(isSafe(board,row,col,ch)==true){
+         
+                board[row][col] = ch;
+  
+                
+                //System.out.println(ch);
+               if(solver(board) == true)
+                return true;
+            else{
+                board[row][col]='.';
+            }
+        }
+        }
+        return false;
+        
+    }
+}
