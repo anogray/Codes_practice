@@ -1,0 +1,50 @@
+//https://leetcode.com/problems/super-ugly-number/
+class Solution {
+    
+   class ugly implements Comparable<ugly>{
+       
+       int val; //this is for the value
+       int idx;  //idx which will be used for storing next number for primes[i]
+       int set; //this is used for the primes[i] number which will be multiplied with the values
+       
+       public ugly(int val, int idx, int set){
+           this.val = val;
+           this.idx = idx;
+           this.set = set;
+       }
+       
+       public int compareTo(ugly p){
+          
+           return this.val-p.val;
+       }
+   }
+        
+    public int nthSuperUglyNumber(int n, int[] primes) {
+        
+        PriorityQueue<ugly> pq = new PriorityQueue<>();
+        int[] arrugly = new int[n];
+        
+        for(int i = 0 ; i <primes.length; i++){
+            pq.add(new ugly(primes[i],1,primes[i]));
+        }
+        
+        arrugly[0] = 1;
+        
+        for(int i = 1; i<n; i++){
+//here let we have gone till 1,2, this time i = 3 we get min values i.e. 3 out of heap and store arrugly[2] = 3
+            
+            arrugly[i] = pq.peek().val;
+ //taking the while loop because at a time i.e 2 factor = 6 and 3 factor = 6 so we will update respecitively of 2 and 3 factors
+            
+            while(pq.peek().val==arrugly[i]){
+            ugly rem = pq.remove();
+            pq.add(new ugly(arrugly[rem.idx]*rem.set, rem.idx+1, rem.set));    
+//now arrugly[1]=2 and 2* rem.set(==3) = 6 and idx+1=2 for next iteration like next will be arrugly[2] = 3 so 3*rem.set(==3) = 9 and so on..            
+            
+            }
+            
+        }
+        
+        return arrugly[n-1];
+    }
+}

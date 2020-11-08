@@ -1,0 +1,71 @@
+//https://leetcode.com/problems/asteroid-collision/
+class Solution {
+    public int[] asteroidCollision(int[] asteroids) {
+        
+        if(asteroids.length<=0)
+            return new int[]{};
+  
+        Stack<Integer> st = new Stack<>();
+        st.push(0);
+        boolean flag = false;
+        for(int i=1 ; i<asteroids.length; i++)
+        {
+            flag=false;
+            while(st.size()>0 && asteroids[i]<0)
+            {
+                if(asteroids[st.peek()]<0)
+                    break;
+                
+               //handling when asteriod is powerful than present in stack 10,2,-5
+                //[10] destroy coming asteroid and present in stack
+                else if(asteroids[st.peek()] <= -asteroids[i])
+                {
+                    int val = st.pop();
+                    if(asteroids[val]==-asteroids[i])
+                    {            
+
+                        flag=true;
+                        break;
+                    }
+
+                }
+                
+                //handling when asteroid is less powerful present in stack but 5,10,-5
+                //5,10 destroy coming asteriod
+                else if(asteroids[st.peek()] >= -asteroids[i])
+                {
+                    flag=true;
+                    break;
+
+                }
+
+            }
+                       
+            if(st.size()==0){
+                if(flag==true)
+                    continue;
+            }
+            
+            else if(st.size()>0)
+            {
+                if(flag==true)
+                    continue;
+            }
+            
+            else if(asteroids[i]<0 && asteroids[st.peek()]>-asteroids[i])
+                continue;
+
+            st.push(i);
+        }
+        System.out.println(st);
+        
+        int[] ans = new int[st.size()];
+        for(int i= ans.length-1 ; i>=0;i--)
+        {
+           ans[i] = asteroids[st.pop()]; 
+        }
+        
+        return ans;
+
+    }
+}

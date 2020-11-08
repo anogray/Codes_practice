@@ -1,0 +1,24 @@
+//https://leetcode.com/problems/binary-tree-tilt/solution/
+class Solution {
+              int tilt = 0;
+    public int findTilt(TreeNode root) {
+        
+        int sum = Tilt(root);
+            return tilt;
+  }
+    private int Tilt(TreeNode root){
+    
+        if(root==null)
+      return 0;
+      
+      int l = Tilt(root.left);
+      int r = Tilt(root.right);
+      
+      int sum = l + r + root.val;
+      tilt += Math.abs(l - r);
+      
+      return sum;
+    }
+    
+    
+}

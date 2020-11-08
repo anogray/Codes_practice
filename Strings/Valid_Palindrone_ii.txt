@@ -1,0 +1,45 @@
+//https://leetcode.com/problems/valid-palindrome-ii/
+//https://www.geeksforgeeks.org/remove-character-string-make-palindrome/
+
+class Solution {
+    public boolean validPalindrome(String s) {
+        
+        if(s.length()<=0)
+            return false;
+        
+        int low=0,high = s.length()-1;
+            
+            while(low<high){
+                
+                if(s.charAt(low) == s.charAt(high))
+                {
+                    low++;
+                    high--;
+                }
+                else
+                {
+                if(checkPalindrome(low,high-1,s))
+                    return true;
+                
+                if(checkPalindrome(low+1,high,s))
+                    return true;
+                    
+                return false;    
+                    
+                }
+            }
+        return true;
+    }
+    
+    private boolean checkPalindrome(int low,int high,String str)
+    {
+        while(low<high)
+        {
+            if(str.charAt(low)!=str.charAt(high))
+                return false;
+            low++;
+            high--;
+        }
+        return true;
+    }
+}

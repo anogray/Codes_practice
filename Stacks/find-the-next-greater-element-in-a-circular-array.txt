@@ -1,0 +1,37 @@
+//https://leetcode.com/problems/next-greater-element-ii/
+//https://www.geeksforgeeks.org/find-the-next-greater-element-in-a-circular-array/
+class Solution {
+    public int[] nextGreaterElements(int[] nums) {
+        
+        Stack<Integer> st = new Stack<>();
+        int[] ans = new int[nums.length];
+        //ans is being used because it could be possible for {100,2,1,120,5,16} =>{120,120,120,120,16,16} for first pass but in second pass we will get the last element 16 asssign with 120 but we needed to compare with original array in line 12,20 
+        //First pass we will get the linearly to get next greater elements of array
+        for(int i=0; i<nums.length; i++)
+        {
+            while(st.size()>0 && nums[i] > nums[st.peek()] )
+            {
+                ans[st.pop()] = nums[i];
+            }
+            st.push(i);
+        }
+        //Second pass to check maybe the later indices could be used to getting next greater element from 0
+        //present not used in stack
+        for(int i=0; st.empty()==false && i<nums.length; i++)
+        {
+            if(nums[st.peek()] < nums[i])
+            {
+                ans[st.pop()]=nums[i];
+                i--;
+            }
+            
+        }
+        //get the left elements in stack assigned with -1
+        while(st.size()>0)
+        {
+            ans[st.pop()]=-1;
+        }
+        return ans;
+        
+    }
+}

@@ -1,0 +1,46 @@
+https://www.geeksforgeeks.org/rat-in-a-maze-backtracking-2/
+class GfG {
+    public static ArrayList<String> printPath(int[][] m, int n) {
+        // Your code here
+        int[][]sol = new int[n][n];
+        
+        ArrayList<String> res = new ArrayList<>();
+        rat(m,sol,0,0,"",res);
+        
+        if(res.size()==0)
+       { res.add("-1");
+       Collections.sort(res);
+        return res;
+       }
+       Collections.sort(res); 
+        return res;
+
+    }
+    
+        public static void rat(int[][] m,int[][] sol, int i, int j, String str,ArrayList<String> res)
+        {
+        
+        // if(i<0 || j<0 || j>m.length || i>m.length)
+        // return;
+      if(i < 0 || j < 0 || i >= m.length || j >= m[0].length || 
+         m[i][j] == 0 ||  sol[i][j] == 1){
+         return;
+      }
+        
+       else if(i==m.length-1 && j==m.length-1 && m[i][j]==1)
+        {
+        res.add(str);    
+        return ;
+        }
+        
+        sol[i][j] = 1;
+        rat(m,sol,i-1,j,str+"U",res);
+        rat(m,sol,i,j-1,str+"L",res);   
+        rat(m,sol,i+1,j,str+"D",res);
+        rat(m,sol,i,j+1,str+"R",res);
+          sol[i][j]=0;
+       
+        }
+
+
+}
