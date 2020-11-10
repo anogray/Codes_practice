@@ -1,0 +1,77 @@
+//https://leetcode.com/problems/maximum-frequency-stack/
+
+class FreqStack {
+
+    HashMap<Integer, Stack<Integer>> stfreq;
+    HashMap<Integer, Integer> freq;
+    int maxfreq;
+
+
+    public FreqStack() {
+        stfreq = new HashMap<>();
+        freq = new HashMap<>();
+        maxfreq = 0;
+        
+    }
+    
+    public void push(int x) {
+        
+        if(freq.containsKey(x))
+            freq.put(x,freq.get(x)+1);
+        else
+            freq.put(x,1);
+        
+        int check = freq.get(x);
+        
+        if(stfreq.containsKey(check))
+        {
+           Stack<Integer> ns = stfreq.get(check);
+            ns.push(x);
+            stfreq.put(check,ns);
+            
+        }
+        else
+        {
+            Stack<Integer> ns = new Stack<>();
+            ns.push(x);
+            stfreq.put(check,ns);
+            maxfreq++;
+           
+        }
+        
+    }
+    
+    public int pop() {
+        if(maxfreq<=0)
+            return -1;
+        Stack<Integer> st = stfreq.get(maxfreq);
+        int x=-1;
+        
+        if(st.size()>0)
+            x = st.pop();
+        
+        int check = freq.get(x);
+        if(check>0)
+            freq.put(x,freq.get(x)-1);
+        else
+            freq.remove(x);
+        
+        if(st.size()<=0)
+        {
+          stfreq.remove(maxfreq); 
+            maxfreq--;  
+        }
+        else
+            stfreq.put(maxfreq,st);
+        
+        return x;
+        
+    }
+}
+
+/**
+ * Your FreqStack object will be instantiated and called as such:
+ * FreqStack obj = new FreqStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ */

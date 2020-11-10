@@ -1,0 +1,25 @@
+//https://www.geeksforgeeks.org/interesting-method-generate-binary-numbers-1-n/
+
+class solve{
+    static ArrayList<String> generate(long n)
+    {
+        // Your code here
+        ArrayList<String> res = new ArrayList<>();
+        Queue<String> qu = new LinkedList<>();
+        qu.add("1");
+        
+        for(long i =n ; i>0 ;i--)
+        {
+            String s1 = qu.remove();
+            res.add(s1);
+
+            //String s2 = s1;
+            
+            qu.add(s1 + "0");
+            qu.add(s1 + "1");
+        }
+        
+        return res;
+    }
+    
+}

@@ -1,0 +1,62 @@
+https://leetcode.com/problems/min-stack/
+//2 stacks
+
+class MinStack {
+    Stack<Integer> st ;
+    Stack<Integer> minst ;
+
+    /** initialize your data structure here. */
+    public MinStack() {
+       st = new Stack<>();;
+        minst = new Stack<>();
+    }
+    
+    public void push(int x) {
+        
+        if(st.size()<=0 && minst.size()<=0)
+        {
+            st.push(x);
+            minst.push(x);
+            return;
+        }
+        
+        st.push(x);
+        
+         if(minst.peek()<=x)
+            minst.push(minst.peek());
+        else
+            minst.push(x);
+        
+    }
+    
+    public void pop() {
+        if(st.size()<=0 && minst.size()<=0)
+            return;
+        st.pop();
+        minst.pop();        
+        
+    }
+    
+    public int top() {
+        if(st.size()<=0)
+            return 0;
+        
+        return st.peek();
+    }
+    
+    public int getMin() {
+        if(minst.size()==0)
+            return 0;
+        else
+            return minst.peek();
+    }
+}
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(x);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
